@@ -20,6 +20,7 @@ public class JobData {
     private static Boolean isDataLoaded = false;
 
     private static ArrayList<HashMap<String, String>> allJobs;
+    private static HashMap<String, String> row;
 
     /**
      * Fetch list of all values from loaded data,
@@ -125,14 +126,18 @@ public class JobData {
         }
     }
 
-    public static ArrayList<HashMap<String, String>> findByValue(String term){
+    public static ArrayList<HashMap<String, String>> findByValue(String term) {
         loadData();
+
 
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
         for(HashMap<String, String> row : allJobs) {
-            String value = row.toString();
-            if(value.toLowerCase().contains(term.toLowerCase())){
-                jobs.add(row);
+//            String value = row.toString();
+            for (String value : row.keySet()) {
+                if (value.toLowerCase().contains(term.toLowerCase())) {
+                    jobs.add(row);
+                    break;
+                }
             }
         }
         return jobs;
